@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Analyse des Décès Mondiaux</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Analyse des Décès dans le Monde</h1>
+
+    <h2>➤ Pays avec le plus grand nombre de décès</h2>
+    <canvas id="chart1"></canvas>
+
+    <h2>➤ Évolution des décès dus au diabète (par année)</h2>
+    <canvas id="chart2"></canvas>
+
+    <h2>➤ Top 10 causes de mortalité</h2>
+    <canvas id="chart3"></canvas>
+
+    <h2>➤ Cause ayant le plus augmenté / diminué entre 1990 et 2019</h2>
+    <div id="chart4"></div>
+
+    <h2>➤ Pays les plus touchés par les maladies non transmissibles</h2>
+    <canvas id="chart5"></canvas>
+  </div>
+
+  <script>
+    // 1. Pays avec le plus de décès
+    fetch('/api/deaths/top-deaths-country')
+      .then(res => res.json())
+      .then(data => {
+        new Chart(document.getElementById('chart1'), {
+          type: 'bar',
+          data: {
+            labels: data.map(d => d.country),
+            datasets: [{
+              label: 'Décès totaux',
+              data: data.map(d => d.totalDeaths),
+              backgroundColor: 'rgba(255, 99, 132, 0.5)'
+            }]
+          }
+        });
+      });
+
+    // 2. Évolution des décès dus au diabète
+    fetch('/api/deaths/diabetes-evolution')
+      .then(res => res.json())
+      .then(data => {
+        new Chart(document.getElementById('chart2'), {
+          type: 'line',
+          data: {
+            labels: data.map(d => d._id),
+            datasets: [{
+              label: 'Décès diabète',
+              data: data.map(d => d.totalDiabetesDeaths),
+              borderColor: 'blue',
+              backgroundColor: 'rgba(0,0,255,0.1)',
+              fill: true,
+              tension: 0.3
+            }]
+          }
+        });
+      });
+
+    // 3. Top 10 causes
+    fetch('/api/deaths/top-causes')
+      .then(res => res.json())
+      .then(data => {
+        new Chart(document.getElementById('chart3'), {
+          type: 'bar',
+          data: {
+            labels: data.map(d => d.cause),
+            datasets: [{
+              label: 'Décès',
+              data: data.map(d => d.totalDeaths),
+              backgroundColor: 'orange'
+            }]
+          }
+        });
+      });
+
+    // 4. Cause avec + / - de variation entre 1990 et 2019
+    fetch('/api/deaths/cause-evolution')
+      .then(res => res.json())
+      .then(data => {
+        const el = document.getElementById('chart4');
+        el.innerHTML = `
+          <p>📈 <strong>${data.causeWithMostIncrease.cause}</strong> a le plus augmenté : +${data.causeWithMostIncrease.diff.toLocaleString()} décès</p>
+          <p>📉 <strong>${data.causeWithMostDecrease.cause}</strong> a le plus diminué : ${data.causeWithMostDecrease.diff.toLocaleString()} décès</p>
+        `;
+      });
+
+    // 5. Pays les plus touchés par maladies non transmissibles
+    fetch('/api/deaths/non-communicable')
+      .then(res => res.json())
+      .then(data => {
+        new Chart(document.getElementById('chart5'), {
+          type: 'bar',
+          data: {
+            labels: data.map(d => d.country),
+            datasets: [{
+              label: 'Décès maladies non transmissibles',
+              data: data.map(d => d.totalNonCommunicableDeaths),
+              backgroundColor: 'green'
+            }]
+          }
+        });
+      });
+  </script>
+</body>
+</html>

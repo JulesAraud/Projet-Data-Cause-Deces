@@ -9,6 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// 🔹 Sert les fichiers HTML/JS/CSS depuis le dossier "public"
+app.use(express.static('public'));
 app.use('/api/deaths', deathRoutes);
 
 

@@ -1,0 +1,75 @@
+/* GENERAL */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f7fa;
+    margin: 0;
+    padding: 0;
+    color: #222;
+  }
+  
+  /* CONTAINER CENTRAL */
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  }
+  
+  /* TITRE PRINCIPAL */
+  h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #4caf50;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 3px solid #4caf50;
+    padding-bottom: 15px;
+  }
+  
+  /* SOUS-TITRES */
+  h2 {
+    font-size: 1.6em;
+    color: #333;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-left: 6px solid #4caf50;
+    padding-left: 12px;
+  }
+  
+  /* GRAPHIQUES */
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 400px !important;
+    margin: 20px auto 60px auto;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* BLOC TEXTE (QUESTION 4) */
+  #chart4 {
+    background-color: #eaf7ff;
+    border-left: 5px solid #007bff;
+    padding: 20px 25px;
+    margin: 30px auto 60px auto;
+    max-width: 90%;
+    border-radius: 10px;
+    font-size: 1.15em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+  
+  #chart4 strong {
+    color: #007bff;
+  }
+  
+  p {
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+
+  
