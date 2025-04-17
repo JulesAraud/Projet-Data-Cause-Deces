@@ -5,29 +5,50 @@
   <title>Analyse des Décès Mondiaux</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .graph-container {
+      display: none;
+    }
+
+    h2 {
+      cursor: pointer;
+      color: #4caf50;
+      transition: 0.2s ease;
+    }
+
+    h2:hover {
+      color: #388e3c;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>Analyse des Décès dans le Monde</h1>
 
-    <h2>➤ Pays avec le plus grand nombre de décès</h2>
-    <canvas id="chart1"></canvas>
+    <h2 onclick="toggle('chart1-container')">➤ Pays avec le plus grand nombre de décès</h2>
+    <div class="graph-container" id="chart1-container"><canvas id="chart1"></canvas></div>
 
-    <h2>➤ Évolution des décès dus au diabète (par année)</h2>
-    <canvas id="chart2"></canvas>
+    <h2 onclick="toggle('chart2-container')">➤ Évolution des décès dus au diabète (par année)</h2>
+    <div class="graph-container" id="chart2-container"><canvas id="chart2"></canvas></div>
 
-    <h2>➤ Top 10 causes de mortalité</h2>
-    <canvas id="chart3"></canvas>
+    <h2 onclick="toggle('chart3-container')">➤ Top 10 causes de mortalité</h2>
+    <div class="graph-container" id="chart3-container"><canvas id="chart3"></canvas></div>
 
-    <h2>➤ Cause ayant le plus augmenté / diminué entre 1990 et 2019</h2>
-    <div id="chart4"></div>
+    <h2 onclick="toggle('chart4-container')">➤ Cause ayant le plus augmenté / diminué entre 1990 et 2019</h2>
+    <div class="graph-container" id="chart4-container"><canvas id="chart4"></canvas></div>
 
-    <h2>➤ Pays les plus touchés par les maladies non transmissibles</h2>
-    <canvas id="chart5"></canvas>
+    <h2 onclick="toggle('chart5-container')">➤ Pays les plus touchés par les maladies non transmissibles</h2>
+    <div class="graph-container" id="chart5-container"><canvas id="chart5"></canvas></div>
   </div>
 
   <script>
-    // 1. Pays avec le plus de décès
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    }
+
+    // Chart 1
     fetch('/api/deaths/top-deaths-country')
       .then(res => res.json())
       .then(data => {
@@ -38,13 +59,17 @@
             datasets: [{
               label: 'Décès totaux',
               data: data.map(d => d.totalDeaths),
-              backgroundColor: 'rgba(255, 99, 132, 0.5)'
+              backgroundColor: 'rgba(255, 99, 132, 0.7)',
+              borderColor: 'rgba(220, 0, 78, 1)',
+              borderWidth: 2,
+              borderSkipped: false,
+              barThickness: 40
             }]
           }
         });
       });
 
-    // 2. Évolution des décès dus au diabète
+    // Chart 2
     fetch('/api/deaths/diabetes-evolution')
       .then(res => res.json())
       .then(data => {
@@ -64,7 +89,7 @@
         });
       });
 
-    // 3. Top 10 causes
+    // Chart 3
     fetch('/api/deaths/top-causes')
       .then(res => res.json())
       .then(data => {
@@ -75,24 +100,68 @@
             datasets: [{
               label: 'Décès',
               data: data.map(d => d.totalDeaths),
-              backgroundColor: 'orange'
+              backgroundColor: 'rgba(255, 165, 0, 0.7)',
+              borderColor: 'orange',
+              borderWidth: 2,
+              borderSkipped: false,
+              barThickness: 40
             }]
           }
         });
       });
 
-    // 4. Cause avec + / - de variation entre 1990 et 2019
+    // Chart 4 (comparaison entre 1990 et 2019)
     fetch('/api/deaths/cause-evolution')
       .then(res => res.json())
       .then(data => {
-        const el = document.getElementById('chart4');
-        el.innerHTML = `
-          <p>📈 <strong>${data.causeWithMostIncrease.cause}</strong> a le plus augmenté : +${data.causeWithMostIncrease.diff.toLocaleString()} décès</p>
-          <p>📉 <strong>${data.causeWithMostDecrease.cause}</strong> a le plus diminué : ${data.causeWithMostDecrease.diff.toLocaleString()} décès</p>
-        `;
+        const ctx = document.getElementById('chart4');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [
+              data.causeWithMostIncrease.cause,
+              data.causeWithMostDecrease.cause
+            ],
+            datasets: [{
+              label: 'Variation du nombre de décès',
+              data: [
+                data.causeWithMostIncrease.diff,
+                data.causeWithMostDecrease.diff
+              ],
+              backgroundColor: [
+                'rgba(76, 175, 80, 0.7)',   // vert
+                'rgba(244, 67, 54, 0.7)'    // rouge
+              ],
+              borderColor: [
+                'rgba(56, 142, 60, 1)',
+                'rgba(211, 47, 47, 1)'
+              ],
+              borderWidth: 2,
+              borderSkipped: false,
+              barThickness: 60
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: ctx => `${ctx.raw.toLocaleString()} décès`
+                }
+              }
+            },
+            scales: {
+              y: {
+                title: { display: true, text: 'Variation de décès' },
+                beginAtZero: false
+              }
+            }
+          }
+        });
       });
 
-    // 5. Pays les plus touchés par maladies non transmissibles
+    // Chart 5
     fetch('/api/deaths/non-communicable')
       .then(res => res.json())
       .then(data => {
@@ -103,7 +172,11 @@
             datasets: [{
               label: 'Décès maladies non transmissibles',
               data: data.map(d => d.totalNonCommunicableDeaths),
-              backgroundColor: 'green'
+              backgroundColor: 'rgba(76, 175, 80, 0.7)',
+              borderColor: 'rgba(56, 142, 60, 1)',
+              borderWidth: 2,
+              borderSkipped: false,
+              barThickness: 40
             }]
           }
         });
