@@ -27,20 +27,20 @@ if (process.env.NODE_ENV !== 'test') {
 
       console.log("📂 Collection utilisée par le modèle 'Death':", mongoose.model('Death').collection.name);
       const firstDocs = await mongoose.model('Death').find().limit(3).lean();
-if (firstDocs.length === 0) {
-  console.log("❌ Aucun document trouvé dans la collection Death_cause");
-} else {
-  console.log("📄 Premiers documents de la collection :");
-  firstDocs.forEach((doc, i) => {
-    console.log(`\n🧾 Document ${i + 1}:`);
-    console.table({
-      Country: doc["Country/Territory"],
-      Year: doc.Year,
-      Diabetes: doc["Diabetes Mellitus"],
-      TotalKeys: Object.keys(doc).length
-    });
-  });
-}
+        if (firstDocs.length === 0) {
+          console.log("❌ Aucun document trouvé dans la collection Death_cause");
+        } else {
+          console.log("📄 Premiers documents de la collection :");
+          firstDocs.forEach((doc, i) => {
+            console.log(`\n🧾 Document ${i + 1}:`);
+            console.table({
+              Country: doc["Country/Territory"],
+              Year: doc.Year,
+              Diabetes: doc["Diabetes Mellitus"],
+              TotalKeys: Object.keys(doc).length
+            });
+          });
+        }
       app.listen(process.env.PORT, () => {
         console.log(`🚀 Serveur lancé sur http://localhost:${process.env.PORT}`);
       });
