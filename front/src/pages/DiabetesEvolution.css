@@ -1,0 +1,107 @@
+.diabetes-evolution-container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+    width: 95%;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+  }
+  
+  .diabetes-evolution-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+  
+  .diabetes-evolution-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.8rem;
+  }
+  
+  .diabetes-evolution-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #8884d8, #a389d4);
+    border-radius: 2px;
+  }
+  
+  .diabetes-chart-container {
+    background-color: #f9fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .diabetes-tooltip {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tooltip-year {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tooltip-deaths {
+    color: #8884d8;
+    font-weight: 700;
+  }
+  
+  
+  .recharts-line {
+    stroke-width: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .recharts-dot {
+    transition: all 0.3s ease;
+  }
+  
+  .recharts-dot:hover {
+    stroke: #8884d8;
+    stroke-width: 6px;
+  }
+  
+  .recharts-cartesian-grid line {
+    stroke: #e5e7eb;
+  }
+  
+  .recharts-tooltip-cursor {
+    fill: rgba(136, 132, 216, 0.1);
+  }
+  
+  .recharts-legend-item {
+    font-size: 0.9rem;
+  }
+  
+  
+  @keyframes lineAnimation {
+    from {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  .recharts-curve {
+    animation: lineAnimation 1.5s ease-out forwards;
+  }

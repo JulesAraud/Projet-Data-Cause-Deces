@@ -1,0 +1,124 @@
+.non-communicable-container {
+    background-color: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin: 2.5rem auto;
+    max-width: 1100px;
+    width: 95%;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f2f5;
+  }
+  
+  .non-communicable-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
+  
+  .non-communicable-title {
+    font-size: 1.9rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 650;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .non-communicable-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, #82ca9d, #4daa7b);
+    border-radius: 3px;
+  }
+  
+  .non-communicable-chart-container {
+    background-color: #f9fcfb;
+    border-radius: 14px;
+    padding: 1.8rem;
+    margin-top: 1.8rem;
+    border: 1px solid #e8f5ee;
+  }
+  
+  .non-communicable-tooltip {
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e9e4;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .tooltip-country {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #e0e9e4;
+    padding-bottom: 0.5rem;
+  }
+  
+  .tooltip-deaths {
+    color: #4daa7b;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  
+
+  .recharts-bar {
+    transition: all 0.3s ease;
+  }
+  
+  .recharts-bar-rectangle:hover {
+    opacity: 0.85;
+    transform: scaleY(1.02);
+  }
+  
+  .recharts-cartesian-grid line {
+    stroke: #e8f5ee;
+  }
+  
+  .recharts-tooltip-cursor {
+    fill: rgba(130, 202, 157, 0.1);
+  }
+  
+  .recharts-x-axis .recharts-cartesian-axis-tick {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+  
+  .recharts-y-axis .recharts-cartesian-axis-tick {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+  
+
+  @keyframes barAnimation {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .recharts-bar-rectangle {
+    animation: barAnimation 0.8s ease-out forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+  }
+  
+ 
+  .chart-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-style: italic;
+  }

@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+.main-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px); 
+  background-color: #f9fafb;
+}

@@ -1,0 +1,94 @@
+/* CauseEvolution.css */
+.cause-evolution-container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+    width: 95%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .cause-evolution-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cause-evolution-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  .cause-evolution-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff7300, #ffaa00);
+    border-radius: 2px;
+  }
+  
+  .chart-container {
+    margin-top: 2rem;
+    background-color: #f9fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  
+  .custom-tooltip {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+  }
+  
+  .tooltip-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tooltip-value {
+    color: #ff7300;
+    font-weight: 700;
+  }
+  
+  .tooltip-cause {
+    font-style: italic;
+    color: #64748b;
+    margin-top: 0.5rem;
+  }
+  
+  
+  .recharts-bar-rectangle {
+    transition: all 0.3s ease;
+  }
+  
+  .recharts-bar-rectangle:hover {
+    opacity: 0.8;
+    transform: scaleY(1.02);
+  }
+  
+  
+  .recharts-cartesian-axis-tick-value {
+    font-size: 0.85rem;
+    fill: #64748b;
+  }
+  
+  .recharts-cartesian-axis-line {
+    stroke: #e5e7eb;
+  }
+  
+  .recharts-tooltip-cursor {
+    fill: rgba(255, 115, 0, 0.1);
+  }
